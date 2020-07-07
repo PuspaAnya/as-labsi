@@ -1,0 +1,32 @@
+body {
+	/* font-family: 'Montserrat'; */
+	background-color: #841F85;
+}
+
+.navbar {
+	background-color: #000000;
+}
+
+.nav-item a {
+	margin-right: 24px;
+	font-weight: 400;
+}
+
+/* .nav-item.active a {
+	font-weight: 700;
+} */
+
+.sidebar-brand {
+	font-family: 'Lora';
+	font-size: large;
+	font-weight: 600;
+}
+
+.carousel-inner {
+	height: 400px;
+}
+
+.sticky-footer footer {
+	background-color: #841F85;
+	height: 10px;
+}
