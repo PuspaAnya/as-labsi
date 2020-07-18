@@ -73,17 +73,20 @@
 
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item <?= $this->uri->segment(2) == 'biodata_pribadi'
-                            || $this->uri->segment(2) == 'biodata_kerja' ? 'active' : '' ?>">
+    <li class="nav-item <?= $this->uri->segment(2) == 'biodata_kerja'
+                            || $this->uri->segment(2) == 'all_biodata'
+                            || $this->uri->segment(2) == 'editBiodata' ? 'active' : '' ?>">
         <a class="nav-link collapsed active" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
             <i class="fas fa-fw fa-id-card"></i>
             <span>Biodata</span>
         </a>
-        <div id="collapsePages" class="collapse <?= $this->uri->segment(2) == 'biodata_pribadi'
-                                                    || $this->uri->segment(2) == 'biodata_kerja' ? 'show' : '' ?>" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div id="collapsePages" class="collapse <?= $this->uri->segment(2) == 'biodata_kerja'
+                                                    || $this->uri->segment(2) == 'all_biodata'
+                                                    || $this->uri->segment(2) == 'editBiodata' ? 'show' : '' ?>" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item <?= $this->uri->segment(2) == 'biodata_pribadi' ? 'active' : '' ?>" href="<?= base_url('user/biodata_pribadi') ?>">Data Pribadi</a>
-                <a class="collapse-item <?= $this->uri->segment(2) == 'biodata_kerja' ? 'active' : '' ?>" href="<?= base_url('user/biodata_kerja') ?>">Data Kerja</a>
+                <a class="collapse-item <?= $this->uri->segment(2) == 'biodata_kerja'
+                                            || $this->uri->segment(2) == 'editBiodata' ? 'active' : '' ?>" href="<?= base_url('user/biodata_kerja') ?>">Biodata Saya</a>
+                <a class="collapse-item <?= $this->uri->segment(2) == 'all_biodata' ? 'active' : '' ?>" href="<?= base_url('user/all_biodata') ?>">Lihat Biodata Lain</a>
             </div>
         </div>
     </li>

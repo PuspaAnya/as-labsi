@@ -35,7 +35,7 @@
 
             <a href="<?= base_url('admin/tambah_pengumuman') ?>" class="btn btn-success mb-3">+ tambah data</a>
             <div class="table-responsive">
-                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered table-hover" id="table1" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <!-- <th scope="col">No</th> -->
@@ -45,6 +45,7 @@
                         </tr>
                     </thead>
                     <tbody>
+
 
                         <?php foreach ($pengumuman_data as $pd) : ?>
                             <tr>

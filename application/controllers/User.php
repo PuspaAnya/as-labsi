@@ -154,17 +154,17 @@ class User extends CI_Controller
         force_download('assets/doc/' . $data->nama_berkas, NULL);
     }
 
-    public function biodata_pribadi()
-    {
-        $data['title'] = 'Biodata - Asistant Page';
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    // public function biodata_pribadi()
+    // {
+    //     $data['title'] = 'Biodata - Asistant Page';
+    //     $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
-        $this->load->view('user/biodata-pribadi', $data);
-        $this->load->view('templates/footer');
-    }
+    //     $this->load->view('templates/header', $data);
+    //     $this->load->view('templates/sidebar', $data);
+    //     $this->load->view('templates/topbar', $data);
+    //     $this->load->view('user/biodata-pribadi', $data);
+    //     $this->load->view('templates/footer');
+    // }
 
     public function biodata_kerja()
     {
@@ -174,16 +174,34 @@ class User extends CI_Controller
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
-        $this->load->view('user/biodata-kerja', $data);
+        $this->load->view('user/biodata/biodata-kerja', $data);
         $this->load->view('templates/footer');
     }
 
-    public function editBiodataKerja()
+    public function editBiodata()
     {
-        $data['title'] = 'Edit Biodata Kerja';
+        $data['title'] = 'Edit Biodata';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $this->form_validation->set_rules('name', 'Full Name', 'required|trim');
+        $this->form_validation->set_rules('name', 'Nama Lengkap', 'required|trim', [
+            'required' => 'Nama lengkap wajib diisi!'
+        ]);
+        $this->form_validation->set_rules('no_hp', 'No Hp / Whatsapp', 'required|trim|min_length[12]', [
+            'required' => 'Nomor HP/Whatsapp wajib diisi!',
+            'min_length' => 'Nomor HP/Whatsapp tidak valid!'
+        ]);
+        $this->form_validation->set_rules('kelas', 'Kelas', 'required|trim', [
+            'required' => 'Kelas wajib diisi!'
+        ]);
+        $this->form_validation->set_rules('loc_jaga', 'Lokasi Jaga', 'required|trim', [
+            'required' => 'Lokasi jaga wajib diisi!'
+        ]);
+        $this->form_validation->set_rules('jabatan', 'Jabatan', 'required|trim', [
+            'required' => 'Jabatan wajib diisi!'
+        ]);
+        $this->form_validation->set_rules('status', 'Status Asisten', 'required|trim', [
+            'required' => 'Status wajib diisi!'
+        ]);
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
@@ -194,6 +212,12 @@ class User extends CI_Controller
         } else {
             $name = $this->input->post('name');
             $email = $this->input->post('email');
+            $npm = $this->input->post('npm');
+            $no_hp = $this->input->post('no_hp');
+            $kelas = $this->input->post('kelas');
+            $loc_jaga = $this->input->post('loc_jaga');
+            $jabatan = $this->input->post('jabatan');
+            $status = $this->input->post('status');
 
             //cek jika ada gambar yg diupload
             $upload_image = $_FILES['image']['name'];
@@ -218,13 +242,33 @@ class User extends CI_Controller
             }
 
             $this->db->set('name', $name);
+            $this->db->set('npm', $npm);
+            $this->db->set('no_hp', $no_hp);
+            $this->db->set('kelas', $kelas);
+            $this->db->set('loc_jaga', $loc_jaga);
+            $this->db->set('jabatan', $jabatan);
+            $this->db->set('status', $status);
             $this->db->where('email', $email);
             $this->db->update('user');
 
             $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
-            Your profile has been updated!
+            Biodata Anda berhasil diubah!
           </div>');
             redirect('user/biodata_kerja');
         }
+    }
+
+    public function all_biodata()
+    {
+        $data['title'] = 'All Biodata Assistant';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        // $this->load->model('User_model', 'all_user');
+        $data['all_user'] = $this->db->get('user')->result_array();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/sidebar', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('user/biodata/all_biodata', $data);
+        $this->load->view('templates/footer');
     }
 }

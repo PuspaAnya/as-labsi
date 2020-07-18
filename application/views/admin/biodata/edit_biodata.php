@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col-lg-8">
 
-            <?= form_open_multipart('user/editBiodata') ?>
+            <?= form_open_multipart('admin/editBiodata') ?>
 
             <div class="form-group row">
                 <label for="npm" class="col-sm-2 col-form-label">NPM</label>
@@ -85,7 +85,7 @@
 
             <div class="form-group row justify-content-end">
                 <div class="col-sm-10 mt-5">
-                    <a href="<?= base_url('user/biodata_kerja') ?>" class="btn btn-secondary">Kembali</a>
+                    <a href="<?= base_url('admin/biodata_kerja') ?>" class="btn btn-secondary">Kembali</a>
                     <button type="submit" class="btn btn-primary">Simpan</button>
                 </div>
             </div>

@@ -9,7 +9,6 @@
             <h6 class="m-0 font-weight-bold">Data Asisten LABSI</h6>
         </div>
         <div class="card-body">
-            <a href=# class="btn btn-primary mb-3">+ tambah asisten</a>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="table1" width="100%" cellspacing="0">
                     <thead>
@@ -20,11 +19,10 @@
                             <!-- <th width="50px" scope="col">Email</th> -->
                             <th scope="col">No. Hp</th>
                             <th scope="col">Kelas</th>
-                            <th scope="col">Lokasi Jaga</th>
+                            <th width="150px" scope="col">Lokasi Jaga</th>
                             <th scope="col">Jabatan</th>
                             <th scope="col">Status</th>
                             <th scope="col">Image</th>
-                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -41,11 +39,7 @@
                                 <td><?= $au['jabatan']; ?></td>
                                 <td><?= $au['status']; ?></td>
                                 <td class="text-center"><img width="100 " src="<?php echo base_url(); ?>assets/img/profile/<?= $au['image']; ?>" /></td>
-                                <td>
-                                    <a href="" name="details"><i class="fas fa-fw fa-clipboard-list"></i></a>
-                                    <a> | </a>
-                                    <a href="" name="delete" class="text-danger"><i class="fas fa-fw fa-trash-alt"></i></a>
-                                </td>
+
                             </tr>
                             <?php $i++; ?>
                         <?php endforeach; ?>
@@ -62,7 +56,6 @@
                             <th scope="col">Jabatan</th>
                             <th scope="col">Status</th>
                             <th scope="col">Image</th>
-                            <th scope="col">Action</th>
                         </tr>
                     </tfoot>
                 </table>

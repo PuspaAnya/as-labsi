@@ -12,6 +12,7 @@ class Admin extends CI_Controller
         $this->load->model('Kalender_akademik_model');
         $this->load->model('Pengumuman_model');
         $this->load->model('Kontak_model');
+        $this->load->model('Ubah_periode_model');
     }
 
     public function index()
@@ -21,6 +22,7 @@ class Admin extends CI_Controller
 
         $data['periode'] = $this->db->get_where('periode')->row_array();
         $data['kalender_akademik'] = $this->Kalender_akademik_model->getAllKalender();
+        // $data['periode'] = $this->Ubah_periode_model->getAllData();
         // $this->load->model('Kalender_user_model', 'kalender_user');
         // $data['kalender_user'] = $this->db->get('kalender_akademik')->result_array();
 
@@ -29,6 +31,30 @@ class Admin extends CI_Controller
         $this->load->view('templates/admin-topbar', $data);
         $this->load->view('admin/index', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function edit_periode($id)
+    {
+        $data['title'] = 'Form Edit Periode';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['periode'] = $this->Ubah_periode_model->getPeriodeById($id);
+
+        $this->form_validation->set_rules('tahun_periode', 'Tahun Periode', 'trim|required', [
+            'required' => 'Field Kegiatan harus diisi.'
+        ]);
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/admin-sidebar', $data);
+            $this->load->view('templates/admin-topbar', $data);
+            $this->load->view('admin/edit_periode', $data);
+            $this->load->view('templates/footer');
+        } else {
+            //validasinya sukses
+            $this->Ubah_periode_model->editPeriode();
+            $this->session->set_flashdata('message', 'diubah');
+            redirect('admin');
+        }
     }
 
     public function tambah_kal()
@@ -206,14 +232,14 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function hapus_contact($id)
-    {
-        $data['contact_data'] = $this->Kontak_model->getDataById($id);
+    // public function hapus_contact($id)
+    // {
+    //     $data['contact_data'] = $this->Kontak_model->getDataById($id);
 
-        $this->Kontak_model->hapusData($id);
-        $this->session->set_flashdata('message', 'dihapus');
-        redirect('admin/contact');
-    }
+    //     $this->Kontak_model->hapusData($id);
+    //     $this->session->set_flashdata('message', 'dihapus');
+    //     redirect('admin/contact');
+    // }
 
     public function jadwal_jaga()
     {
@@ -385,19 +411,19 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function biodata_pribadi()
-    {
-        $data['title'] = 'All Biodata Assistant';
-        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $this->load->model('User_model', 'all_user');
-        $data['all_user'] = $this->db->get('user')->result_array();
+    // public function biodata_pribadi()
+    // {
+    //     $data['title'] = 'All Biodata Assistant';
+    //     $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+    //     $this->load->model('User_model', 'all_user');
+    //     $data['all_user'] = $this->db->get('user')->result_array();
 
-        $this->load->view('templates/header', $data);
-        $this->load->view('templates/admin-sidebar', $data);
-        $this->load->view('templates/admin-topbar', $data);
-        $this->load->view('admin/biodata/biodata-pribadi', $data);
-        $this->load->view('templates/footer');
-    }
+    //     $this->load->view('templates/header', $data);
+    //     $this->load->view('templates/admin-sidebar', $data);
+    //     $this->load->view('templates/admin-topbar', $data);
+    //     $this->load->view('admin/biodata/biodata-pribadi', $data);
+    //     $this->load->view('templates/footer');
+    // }
 
     public function biodata_kerja()
     {
@@ -411,5 +437,72 @@ class Admin extends CI_Controller
         $this->load->view('templates/admin-topbar', $data);
         $this->load->view('admin/biodata/biodata-kerja', $data);
         $this->load->view('templates/footer');
+    }
+
+    public function editBiodata()
+    {
+        $data['title'] = 'Edit Biodata';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+
+        $this->form_validation->set_rules('name', 'Nama Lengkap', 'required|trim');
+        $this->form_validation->set_rules('no_hp', 'No Hp / Whatsapp', 'required|trim');
+        $this->form_validation->set_rules('kelas', 'Kelas', 'required|trim');
+        $this->form_validation->set_rules('loc_jaga', 'Lokasi Jaga', 'required|trim');
+        $this->form_validation->set_rules('jabatan', 'Jabatan', 'required|trim');
+        $this->form_validation->set_rules('status', 'Status Asisten', 'required|trim');
+
+        if ($this->form_validation->run() == false) {
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/admin-sidebar', $data);
+            $this->load->view('templates/admin-topbar', $data);
+            $this->load->view('admin/biodata/edit_biodata', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $name = $this->input->post('name');
+            $email = $this->input->post('email');
+            $npm = $this->input->post('npm');
+            $no_hp = $this->input->post('no_hp');
+            $kelas = $this->input->post('kelas');
+            $loc_jaga = $this->input->post('loc_jaga');
+            $jabatan = $this->input->post('jabatan');
+            $status = $this->input->post('status');
+
+            //cek jika ada gambar yg diupload
+            $upload_image = $_FILES['image']['name'];
+
+            if ($upload_image) {
+                $config['allowed_types'] = 'gif|jpg|jpeg|png';
+                $config['max_size'] = '2048';
+                $config['upload_path'] = './assets/img/profile';
+
+                $this->load->library('upload', $config);
+
+                if ($this->upload->do_upload('image')) {
+                    $old_image = $data['user']['image'];
+                    if ($old_image != 'default.jpg') {
+                        unlink(FCPATH . 'assets/img/profile/' . $old_image);
+                    }
+                    $new_image = $this->upload->data('file_name');
+                    $this->db->set('image', $new_image);
+                } else {
+                    echo $this->upload->display_errors();
+                }
+            }
+
+            $this->db->set('name', $name);
+            $this->db->set('npm', $npm);
+            $this->db->set('no_hp', $no_hp);
+            $this->db->set('kelas', $kelas);
+            $this->db->set('loc_jaga', $loc_jaga);
+            $this->db->set('jabatan', $jabatan);
+            $this->db->set('status', $status);
+            $this->db->where('email', $email);
+            $this->db->update('user');
+
+            $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">
+            Your profile has been updated!
+          </div>');
+            redirect('admin/biodata_kerja');
+        }
     }
 }

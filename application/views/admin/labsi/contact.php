@@ -24,7 +24,7 @@
             <h5 class="m-0 font-weight-bold">Daftar Email LABSI</h5>
         </div>
         <div class="card-body">
-            <a href="<?= base_url('admin/upload_jadwaljaga') ?>" class="btn btn-primary mb-3"><i class="fas fa-fw fa-edit"></i> Edit Detail Kontak</a>
+            
             <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="table1" width="100%" cellspacing="0">
                     <thead>
@@ -33,7 +33,6 @@
                             <th scope="col">Nama Pengirim</th>
                             <th scope="col">Email</th>
                             <th width="300px" scope="col">Pesan</th>
-                            <th width="100px" scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -47,11 +46,6 @@
                                 <td><?php echo $row->nama; ?></td>
                                 <td><?php echo $row->email; ?></td>
                                 <td><?php echo $row->pesan; ?></td>
-                                <td>
-                                    <a href="" onclick="return confirm('Data akan terhapus, lanjutkan?')" class="text-primary"><i class="fas fa-fw fa-book-open"></i></a>
-                                    <a> | </a>
-                                    <a href="" class="text-danger"><i class="fas fa-fw fa-trash-alt"></i></a>
-                                </td>
 
                             </tr>
                         <?php

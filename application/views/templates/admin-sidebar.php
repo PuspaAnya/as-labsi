@@ -79,20 +79,17 @@
 
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item <?= $this->uri->segment(2) == 'biodata_pribadi'
-                            || $this->uri->segment(2) == 'biodata_kerja'
+    <li class="nav-item <?= $this->uri->segment(2) == 'biodata_kerja'
                             || $this->uri->segment(2) == 'all_biodata' ? 'active' : '' ?>">
         <a class="nav-link collapsed active" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
             <i class="fas fa-fw fa-id-card"></i>
             <span>Biodata</span>
         </a>
-        <div id="collapsePages" class="collapse <?= $this->uri->segment(2) == 'biodata_pribadi'
-                                                    || $this->uri->segment(2) == 'biodata_kerja'
+        <div id="collapsePages" class="collapse <?= $this->uri->segment(2) == 'biodata_kerja'
                                                     || $this->uri->segment(2) == 'all_biodata' ? 'show' : '' ?>" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item <?= $this->uri->segment(2) == 'biodata_pribadi' ? 'active' : '' ?>" href="<?= base_url('admin/biodata_pribadi') ?>">Data Pribadi</a>
-                <a class="collapse-item <?= $this->uri->segment(2) == 'biodata_kerja' ? 'active' : '' ?>" href="<?= base_url('admin/biodata_kerja') ?>">Data Kerja</a>
-                <a class="collapse-item <?= $this->uri->segment(2) == 'all_biodata' ? 'active' : '' ?>" href="<?= base_url('admin/all_biodata') ?>">Lihat Seluruh Data</a>
+                <a class="collapse-item <?= $this->uri->segment(2) == 'biodata_kerja' ? 'active' : '' ?>" href="<?= base_url('admin/biodata_kerja') ?>">Biodata</a>
+                <a class="collapse-item <?= $this->uri->segment(2) == 'all_biodata' ? 'active' : '' ?>" href="<?= base_url('admin/all_biodata') ?>">Lihat Seluruh Biodata</a>
             </div>
         </div>
     </li>
