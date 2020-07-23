@@ -78,6 +78,19 @@
     })
 </script>
 
+<!-- <script>
+    $(document).ready(function() {
+        $('#table1').DataTable({
+            columnDefs: [{
+                'sortable': false,
+                'searchable': false,
+                'targets': [0, -1]
+            }],
+            order: false,
+        })
+    })
+</script> -->
+
 <!-- CKEditor -->
 <script>
     CKEDITOR.replace('pengumuman');

@@ -4,9 +4,9 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4 text-center mx-auto">
         <h3 class="mt-4 text-gray-800 mx-auto">Kalender Akademik LABSI <br>
-            <?= $periode['tahun_periode']; ?>
+            <?= $d_periode['tahun_periode']; ?>
             <br>
-            <a class="h5 mt-0" href="<?= base_url('admin/edit_periode') ?>"><small>ubah periode</small></a>
+            <a class="h5 mt-0" href="<?= base_url() ?>admin/edit_periode/<?= $d_periode['id']; ?>"><small>ubah periode</small></a>
 
         </h3>
     </div>
@@ -17,7 +17,7 @@
             <div class="row mt-3">
                 <div class="col-lg">
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Data Kalender Akademik<strong> berhasil</strong> <?= $this->session->flashdata('message'); ?>.
+                        Data <strong> berhasil</strong> <?= $this->session->flashdata('message'); ?>.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>

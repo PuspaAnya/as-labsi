@@ -6,18 +6,24 @@
         <!-- <h1 class="h3 mb-0 text-gray-800"><?= $title; ?></h1> -->
     </div>
 
-    <?php
-    if (isset($error)) {
-        echo "ERROR UPLOAD : <br/>";
-        print_r($error);
-        echo "<hr/>";
-    }
-    ?>
-
     <div class="card shadow mb-4 col-lg-11 mx-auto">
         <div class="card-header py-3">
             <h5 class="m-0 font-weight-bold"><?= $title; ?></h5>
         </div>
+
+        <?php if ($this->session->flashdata('message')) : ?>
+            <div class="row mt-3">
+                <div class="col-lg">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        Data jadwal jaga<strong> berhasil</strong> <?= $this->session->flashdata('message'); ?>.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+
         <div class="card-body">
             <a href="<?= base_url('admin/upload_jadwalpraktikum') ?>" class="btn btn-success mb-3">+ tambah data</a>
             <div class="table-responsive">
@@ -39,9 +45,9 @@
                                 <td><?php echo $row->keterangan_berkas; ?></td>
                                 <td><a href="<?php echo base_url('admin/download_jadwalpraktikum/'); ?><?php echo $row->kd_berkas; ?>" class="text-success"><i class="fas fa-fw fa-download"></i></a>
                                     <a> | </a>
-                                    <a href="" class=""><i class="fas fa-fw fa-edit"></i></a>
-                                    <a> | </a>
-                                    <a href="" onclick="return confirm('Data akan terhapus, lanjutkan?')" class="text-danger"><i class="fas fa-fw fa-trash-alt"></i></a>
+                                    <!-- <a href="" class=""><i class="fas fa-fw fa-edit"></i></a>
+                                    <a> | </a> -->
+                                    <a href="<?= base_url('admin/hapus_jadwal_praktikum/' . $row->kd_berkas) ?>" onclick="return confirm('Data akan terhapus, lanjutkan?')" class="text-danger"><i class="fas fa-fw fa-trash-alt"></i></a>
                                 </td>
 
                             </tr>

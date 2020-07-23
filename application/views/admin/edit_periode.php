@@ -10,14 +10,12 @@
             <h6 class="m-0 font-weight-bold">Form Edit Periode</h6>
         </div>
         <div class="card-body">
-            <form action="" method="POST">
-                <input type="hidden" name="id" value="<?= $periode['id'] ?>">
+            <form action="<?= base_url('admin/edit_periode'); ?>" method="POST">
                 <div class="form-group">
                     <label for="tahun_periode">Tahun Periode</label>
-                    <input type="text" class="form-control" id="tahun_periode" name="tahun_periode" placeholder="Tahun Periode Praktikum" value="<?= $periode['tahun_periode'] ?>">
+                    <input type="text" class="form-control" id="tahun_periode" name="tahun_periode" value="<?= $d_periode['tahun_periode'] ?>">
                     <?= form_error('tahun_periode', '<small class="text-danger pl-1">', '</small>'); ?>
                 </div>
-
 
                 <div class="row float-right">
                     <div class="col-md-6 mt-2">

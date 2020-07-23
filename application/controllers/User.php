@@ -61,6 +61,8 @@ class User extends CI_Controller
         $data['title'] = 'FAQ - Asistant Page';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
+        $data['berkas'] = $this->db->order_by('id', 'DESC')->get('tb_faq');
+
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar', $data);
         $this->load->view('templates/topbar', $data);
@@ -182,6 +184,9 @@ class User extends CI_Controller
     {
         $data['title'] = 'Edit Biodata';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['status'] = ['Aktif', 'Tidak Aktif'];
+        $data['jabatan'] = ['Asisten', 'Ketua', 'Penanggung Jawab (PJ)'];
+        $data['lokasi'] = ['Kelapa Dua, Depok', 'Karawaci', 'Kalimalang'];
 
         $this->form_validation->set_rules('name', 'Nama Lengkap', 'required|trim', [
             'required' => 'Nama lengkap wajib diisi!'

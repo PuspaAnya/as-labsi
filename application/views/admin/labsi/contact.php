@@ -24,15 +24,16 @@
             <h5 class="m-0 font-weight-bold">Daftar Email LABSI</h5>
         </div>
         <div class="card-body">
-            
+
             <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="table1" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th width="20px" scope="col">No</th>
-                            <th scope="col">Nama Pengirim</th>
-                            <th scope="col">Email</th>
+                            <th width="5px" scope="col">No</th>
+                            <th width="100px" scope="col">Nama Pengirim</th>
+                            <th width="20px" scope="col">Email</th>
                             <th width="300px" scope="col">Pesan</th>
+                            <th width="5px" scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,7 +47,11 @@
                                 <td><?php echo $row->nama; ?></td>
                                 <td><?php echo $row->email; ?></td>
                                 <td><?php echo $row->pesan; ?></td>
-
+                                <td>
+                                    <a href="<?= base_url('admin/detail_contact/' . $row->id) ?>" name="details"><i class="fas fa-fw fa-clipboard-list"></i></a>
+                                    <a> | </a>
+                                    <a href="<?= base_url('admin/hapus_contact/' . $row->id) ?>" onclick="return confirm('Data akan terhapus, lanjutkan?')" class="text-danger"><i class="fas fa-fw fa-trash-alt"></i></a>
+                                </td>
                             </tr>
                         <?php
                         }

@@ -6,14 +6,6 @@
         <!-- <h1 class="h3 mb-0 text-gray-800"><?= $title; ?></h1> -->
     </div>
 
-    <?php
-    if (isset($error)) {
-        echo "ERROR UPLOAD : <br/>";
-        print_r($error);
-        echo "<hr/>";
-    }
-    ?>
-
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold">Kelola Form Pengumuman Praktikum LABSI</h6>
@@ -35,7 +27,7 @@
 
             <a href="<?= base_url('admin/tambah_pengumuman') ?>" class="btn btn-success mb-3">+ tambah data</a>
             <div class="table-responsive">
-                <table class="table table-bordered table-hover" id="table1" width="100%" cellspacing="0">
+                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
                             <!-- <th scope="col">No</th> -->

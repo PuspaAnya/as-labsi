@@ -39,9 +39,9 @@
                                 <td><?php echo $row->keterangan_berkas; ?></td>
                                 <td><a href="<?php echo base_url('admin/download/'); ?><?php echo $row->kd_berkas; ?>" class="text-success"><i class="fas fa-fw fa-download"></i></a>
                                     <a> | </a>
-                                    <a href="" class=""><i class="fas fa-fw fa-edit"></i></a>
-                                    <a> | </a>
-                                    <a href="" class="text-danger" onclick="return confirm('Data akan terhapus, lanjutkan?')"><i class="fas fa-fw fa-trash-alt"></i></a>
+                                    <!-- <a href="" class=""><i class="fas fa-fw fa-edit"></i></a>
+                                    <a> | </a> -->
+                                    <a href="<?= base_url('admin/hapus_materi/' . $row->kd_berkas) ?>" class="text-danger" onclick="return confirm('Data akan terhapus, lanjutkan?')"><i class="fas fa-fw fa-trash-alt"></i></a>
                                 </td>
 
                             </tr>
