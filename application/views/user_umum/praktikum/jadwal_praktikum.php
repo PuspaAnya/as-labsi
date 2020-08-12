@@ -2,12 +2,12 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <div class="d-sm-flex align-items-center justify-content-between mb-5">
 
     </div>
 
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
+    <div class="card shadow mb-4 col-lg-11 mx-auto">
+        <div class="card-header py-3 mx-auto">
             <h5 class="m-0 font-weight-bold">Jadwal Praktikum LABSI</h5>
         </div>
         <div class="card-body">
@@ -29,7 +29,7 @@
                             <tr>
                                 <td><?php echo $no++; ?></td>
                                 <td><?php echo $row->keterangan_berkas; ?></td>
-                                <td class="text-center"><a href="<?php echo base_url('user/download_jadwalpraktikum/'); ?><?php echo $row->kd_berkas; ?>" class="text-success"><i class="fas fa-fw fa-download"></i></a>
+                                <td class="text-center"><a href="<?php echo base_url('welcome/download_jadwalpraktikum/'); ?><?php echo $row->kd_berkas; ?>" class="text-success"><i class="fas fa-fw fa-download"></i></a>
                                 </td>
 
                             </tr>

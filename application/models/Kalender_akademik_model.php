@@ -14,7 +14,7 @@ class Kalender_akademik_model extends CI_Model
     {
         $data = [
             "kegiatan" => $this->input->post('kegiatan', true),
-            "tanggal" => $this->input->post('tanggal', true)
+            "tanggal" => $this->input->post('_tanggal', true)
         ];
 
         $this->db->insert('kalender_akademik', $data);

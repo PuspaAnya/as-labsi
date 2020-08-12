@@ -25,7 +25,7 @@
         <?php endif; ?>
 
         <div class="card-body">
-            <a href="<?= base_url('admin/upload_jadwaljaga') ?>" class="btn btn-success mb-3">+ tambah data</a>
+            <a href="<?= base_url('admin/upload_jadwaljaga') ?>" class="btn btn-outline-primary mb-3"><i class="fas fa-fw fa-plus"></i> Jadwal Jaga</a>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="table1" width="100%" cellspacing="0">
                     <thead>
@@ -46,8 +46,6 @@
                                 <td>
                                     <a href="<?php echo base_url('admin/download_jadwaljaga/'); ?><?php echo $row->kd_berkas; ?>" class="text-success"><i class="fas fa-fw fa-download"></i></a>
                                     <a> | </a>
-                                    <a href="<?= base_url('admin/tambah_sop/') ?><?php echo $row->kd_berkas; ?>"><i class="fas fa-fw fa-edit"></i></a>
-                                    <a> | </a>
                                     <a href="<?= base_url('admin/hapus_jadwal_jaga/' . $row->kd_berkas) ?>" onclick="return confirm('Data akan terhapus, lanjutkan?')" class="text-danger"><i class="fas fa-fw fa-trash-alt"></i></a>
                                 </td>
 
@@ -60,29 +58,6 @@
             </div>
         </div>
 
-        <div class="accordion" id="accordionExample">
-            <div class="card">
-                <?php $index = 1;
-                foreach ($berkas->result() as $r) : ?>
-                    <div class="card-header" id="<?= 'heading' . $index ?>">
-                        <h2 class="mb-0">
-                            <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="<?= '#collapse' . $index ?>" aria-expanded="true" aria-controls="collapseOne">
-                                <?= $r->keterangan_berkas; ?>
-                            </button>
-                        </h2>
-                    </div>
-
-                    <div id="<?= 'collapse' . $index ?>" class="collapse" aria-labelledby="<?= 'heading' . $index ?>" data-parent="#accordionExample">
-                        <div class="card-body">
-                            <?= $r->keterangan_berkas; ?>
-                            <br>
-                            <a href="<?php echo base_url('admin/download_jadwaljaga/'); ?><?php echo $r->kd_berkas; ?>" class="text-primary">download file</a>
-                        </div>
-                    </div>
-                <?php $index++;
-                endforeach; ?>
-            </div>
-        </div>
     </div>
 
 </div>

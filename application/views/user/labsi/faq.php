@@ -6,25 +6,12 @@
         <h1 class="h3 mb-0 text-gray-800"></h1>
     </div>
 
-
-
-    <div class="card shadow col-lg-11 mx-auto mt-4 mb-4">
-        <div class="card-header py-3">
-            <h5 class="m-0 font-weight-bold"><?= $title; ?></h5>
+    <div class="card shadow mb-4 col-lg-11 mx-auto">
+        <div class="card-header py-3 mx-auto">
+            <h4 class="m-0 font-weight-bold"><?= $title; ?></h4>
         </div>
 
-        <?php if ($this->session->flashdata('message')) : ?>
-            <div class="row mt-3">
-                <div class="col-lg">
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        Pesan<strong> berhasil</strong> <?= $this->session->flashdata('message'); ?>.
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        <?php endif; ?>
+        <?= $this->session->flashdata('message') ?>
 
         <div class="card-body">
             <div class="accordion" id="accordionExample">

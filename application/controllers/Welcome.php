@@ -7,7 +7,7 @@ class Welcome extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		is_logged_in();
+		// is_logged_in();
 		$this->load->library('form_validation');
 		$this->load->model('Kalender_akademik_model');
 		$this->load->model('Pengumuman_model');
@@ -16,12 +16,9 @@ class Welcome extends CI_Controller
 
 	public function index()
 	{
-		$data['title'] = 'Home - Asistant Page';
-		// $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-
+		$data['title'] = 'Laboratorium Sistem Informasi Universitas Gunadarma';
+		$data['d_periode'] = $this->db->get_where('periode')->row_array();
 		$data['kalender_akademik'] = $this->Kalender_akademik_model->getAllKalender();
-		// $this->load->model('Kalender_akademik_model', 'kalender_user');
-		// $data['kalender_user'] = $this->db->get('kalender_akademik')->result_array();
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/user_umum_sidebar', $data);
@@ -54,8 +51,8 @@ class Welcome extends CI_Controller
 
 	public function sop()
 	{
-		$data['title'] = 'SOP & Peraturan - Asistant Page';
-
+		$data['title'] = 'Peraturan dan Tata Tertib Praktikum';
+		$data['berkas'] = $this->db->order_by('keterangan', 'ASC')->get('tb_sop2');
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/user_umum_sidebar', $data);
 		$this->load->view('templates/user_umum_topbar', $data);
@@ -63,9 +60,16 @@ class Welcome extends CI_Controller
 		$this->load->view('templates/footer');
 	}
 
+	public function download_sop($id)
+	{
+		$data = $this->db->get_where('tb_sop2', ['id' => $id])->row();
+		force_download('assets/doc/' . $data->nama_file, NULL);
+	}
+
 	public function faq()
 	{
-		$data['title'] = 'FAQ - Asistant Page';
+		$data['title'] = 'FAQ';
+		$data['berkas'] = $this->db->order_by('id', 'DESC')->get('tb_faq');
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('templates/user_umum_sidebar', $data);
@@ -112,5 +116,11 @@ class Welcome extends CI_Controller
 		$this->load->view('templates/user_umum_topbar', $data);
 		$this->load->view('user_umum/praktikum/jadwal_praktikum', $data);
 		$this->load->view('templates/footer');
+	}
+
+	public function download_jadwalpraktikum($id)
+	{
+		$data = $this->db->get_where('tb_jadwal_praktikum', ['kd_berkas' => $id])->row();
+		force_download('assets/doc/' . $data->nama_berkas, NULL);
 	}
 }

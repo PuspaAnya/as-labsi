@@ -2,8 +2,8 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4 text-center mx-auto">
-        <h3 class="mt-4 text-gray-800 mx-auto">Kalender Akademik LABSI <br>
+    <div class="d-sm-flex align-items-center justify-content-between text-center mx-auto">
+        <h3 class="mt-3 text-gray-800 mx-auto">Kalender Akademik <br> Laboratorium Sistem Informasi <br>
             <?= $d_periode['tahun_periode']; ?>
             <br>
             <a class="h5 mt-0" href="<?= base_url() ?>admin/edit_periode/<?= $d_periode['id']; ?>"><small>ubah periode</small></a>
@@ -26,7 +26,14 @@
             </div>
         <?php endif; ?>
 
+        <div class="row">
+            <div class="col-md-6 mb-2">
+                <a href="<?= base_url('admin/tambah_kal') ?>" class="btn btn-outline-primary"><i class="fas fa-fw fa-plus"></i> Tambah Data</a>
+            </div>
+        </div>
+
         <table class="table shadow table-hover table-bordered mx-auto">
+
             <thead class="text-white text-center" style="background-color: #A40000">
                 <tr>
                     <th scope="col">Kegiatan</th>
@@ -48,11 +55,7 @@
             </tbody>
         </table>
 
-        <div class="row">
-            <div class="col-md-6 mt-2">
-                <a href="<?= base_url('admin/tambah_kal') ?>" class="btn btn-primary"><i class="fas fa-fw fa-plus"></i> Tambah Data</a>
-            </div>
-        </div>
+
 
         <!-- Button trigger modal
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#formTambahData">

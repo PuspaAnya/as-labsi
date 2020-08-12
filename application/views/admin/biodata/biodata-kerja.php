@@ -16,8 +16,8 @@
              <div class="card-header py-3 mx-auto">
                  <h5 class="m-0 font-weight-bold"><?= $title; ?></h5>
              </div>
-             <div class="card-body mx-auto">
-                 <div class="row">
+             <div class="card-body col-lg-12 mx-auto justify-content-center">
+                 <div class="row col-lg-12 mx-auto justify-content-center">
                      <div class="col-lg-3">
                          <div class="card-body">
                              <img src="<?= base_url('assets/img/profile/') . $user['image'] ?>" class="img-thumbnail">
@@ -27,62 +27,67 @@
                          <div class="card-body">
                              <form>
                                  <div class="form-group row">
-                                     <div class="col-sm-3">NPM</div>
-                                     <div class="col-sm-9">
-                                         <p class="card-text">: <?= $user['npm'] ?></p>
+                                     <div class="col-sm-4">NPM</div>
+                                     <div class="col-sm-1">:</div>
+                                     <div class="col-sm-5">
+                                         <p class="card-text"><?= $user['npm'] ?></p>
                                      </div>
                                  </div>
                                  <div class="form-group row">
-                                     <div class="col-sm-3">Nama Lengkap</div>
-                                     <div class="col-sm-9">
-                                         <p class="card-text">: <?= $user['name'] ?></p>
+                                     <div class="col-sm-4">Nama Lengkap</div>
+                                     <div class="col-sm-1">:</div>
+                                     <div class="col-sm-5">
+                                         <p class="card-text"><?= $user['name'] ?></p>
                                      </div>
                                  </div>
                                  <div class="form-group row">
-                                     <div class="col-sm-3">Email</div>
-                                     <div class="col-sm-9">
-                                         <p class="card-text">: <?= $user['email'] ?></p>
+                                     <div class="col-sm-4">Email</div>
+                                     <div class="col-sm-1">:</div>
+                                     <div class="col-sm-6">
+                                         <p class="card-text"><?= $user['email'] ?></p>
                                      </div>
                                  </div>
                                  <div class="form-group row">
-                                     <div class="col-sm-3">No Hp / Whatsapp</div>
-                                     <div class="col-sm-9">
-                                         <p class="card-text">: <?= $user['no_hp'] ?></p>
+                                     <div class="col-sm-4">No Hp / Whatsapp</div>
+                                     <div class="col-sm-1">:</div>
+                                     <div class="col-sm-5">
+                                         <p class="card-text"><?= $user['no_hp'] ?></p>
                                      </div>
                                  </div>
                                  <div class="form-group row">
-                                     <div class="col-sm-3">Kelas</div>
-                                     <div class="col-sm-9">
-                                         <p class="card-text">: <?= $user['kelas'] ?></p>
+                                     <div class="col-sm-4">Kelas</div>
+                                     <div class="col-sm-1">:</div>
+                                     <div class="col-sm-5">
+                                         <p class="card-text"><?= $user['kelas'] ?></p>
                                      </div>
                                  </div>
                                  <div class="form-group row">
-                                     <div class="col-sm-3">Lokasi Jaga</div>
-                                     <div class="col-sm-9">
-                                         <p class="card-text">: <?= $user['loc_jaga'] ?></p>
+                                     <div class="col-sm-4">Lokasi Jaga</div>
+                                     <div class="col-sm-1">:</div>
+                                     <div class="col-sm-5">
+                                         <p class="card-text"><?= $user['loc_jaga'] ?></p>
                                      </div>
                                  </div>
                                  <div class="form-group row">
-                                     <div class="col-sm-3">Jabatan</div>
-                                     <div class="col-sm-9">
-                                         <p class="card-text">: <?= $user['jabatan'] ?></p>
+                                     <div class="col-sm-4">Jabatan</div>
+                                     <div class="col-sm-1">:</div>
+                                     <div class="col-sm-5">
+                                         <p class="card-text"><?= $user['jabatan'] ?></p>
                                      </div>
                                  </div>
                                  <div class="form-group row mb-4">
-                                     <div class="col-sm-3">Status Asisten</div>
-                                     <div class="col-sm-9">
-                                         <p class="card-text">: <?= $user['status'] ?></p>
+                                     <div class="col-sm-4">Status Asisten</div>
+                                     <div class="col-sm-1">:</div>
+                                     <div class="col-sm-5">
+                                         <p class="card-text"><?= $user['status'] ?></p>
                                      </div>
                                  </div>
-
-                                 <div class="row mt-3">
-                                     <a href="<?= base_url('admin/editBiodata') ?>" class="btn btn-primary btn-sm m-2"><i class="fas fa-fw fa-cog"></i> Ubah Data</a>
-
-                                     <a href="<?= base_url('admin/ubah_Password') ?>" class="btn btn-secondary btn-sm m-2"><i class="fas fa-fw fa-key"></i> Ubah Password</a>
-                                 </div>
-
-
                              </form>
+                         </div>
+                         <div class="row  justify-content-start">
+                             <a href="<?= base_url('admin/editBiodata') ?>" class="btn btn-outline-primary m-2"><i class="fas fa-fw fa-user-edit"></i> Ubah Data</a>
+
+                             <a href="<?= base_url('admin/ubah_Password') ?>" class="btn m-2"><i class="fas fa-fw fa-key"></i> Ubah Password</a>
                          </div>
                      </div>
                  </div>

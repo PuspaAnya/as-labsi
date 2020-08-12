@@ -17,7 +17,7 @@
             <div class="row mt-3">
                 <div class="col-lg">
                     <div class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong>Sukses </strong> <?= $this->session->flashdata('message'); ?>.
+                        <?= $this->session->flashdata('message'); ?><strong> berhasil</strong>.
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -27,7 +27,7 @@
         <?php endif; ?>
 
         <div class="card-body">
-            <a href="<?= base_url('admin/tambah_faq') ?>" class="btn btn-success mb-3">+ tambah data</a>
+            <a href="<?= base_url('admin/tambah_faq') ?>" class="btn btn-outline-primary mb-3"><i class="fas fa-fw fa-plus"></i> FAQ</a>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="table1" width="100%" cellspacing="0">
                     <thead>
@@ -63,27 +63,6 @@
         </div>
     </div>
 
-    <div class="accordion" id="accordionExample">
-        <div class="card">
-            <?php $index = 1;
-            foreach ($berkas->result() as $r) : ?>
-                <div class="card-header" id="<?= 'heading' . $index ?>">
-                    <h2 class="mb-0">
-                        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="<?= '#collapse' . $index ?>" aria-expanded="true" aria-controls="collapseOne">
-                            <?= $r->pertanyaan; ?>
-                        </button>
-                    </h2>
-                </div>
-
-                <div id="<?= 'collapse' . $index ?>" class="collapse" aria-labelledby="<?= 'heading' . $index ?>" data-parent="#accordionExample">
-                    <div class="card-body">
-                        <?= $r->jawaban; ?>
-                    </div>
-                </div>
-            <?php $index++;
-            endforeach; ?>
-        </div>
-    </div>
 
 </div>
 <!-- /.container-fluid -->

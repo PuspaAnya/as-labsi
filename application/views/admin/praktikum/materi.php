@@ -19,7 +19,7 @@
             <h5 class="m-0 font-weight-bold">Materi Praktikum LABSI</h5>
         </div>
         <div class="card-body">
-            <a href="<?= base_url('admin/upload_materi') ?>" class="btn btn-success mb-3">+ tambah data</a>
+            <a href="<?= base_url('admin/upload_materi') ?>" class="btn btn-outline-primary mb-3"><i class="fas fa-fw fa-plus"></i> Modul Materi</a>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="table1" width="100%" cellspacing="0">
                     <thead>

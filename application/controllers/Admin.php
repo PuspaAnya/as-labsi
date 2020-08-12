@@ -7,6 +7,9 @@ class Admin extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+
+        if ($this->session->role_id == 2) redirect('user');
+
         $this->load->library('form_validation');
         $this->load->library('javascript');
         $this->load->model('Kalender_akademik_model');
@@ -132,7 +135,7 @@ class Admin extends CI_Controller
 
     public function pengumuman()
     {
-        $data['title'] = 'Admin Page';
+        $data['title'] = 'Kelola Pengumuman Praktikum';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         // $data['pengumuman_data'] = $this->db->order_by('id', 'DESC')->get('tb_pengumuman')->result_array();
@@ -174,7 +177,7 @@ class Admin extends CI_Controller
 
     public function edit_pengumuman($id)
     {
-        $data['title'] = 'Form Edit Data Kalender Akademik';
+        $data['title'] = 'Form Edit Data Pengumuman';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['pengumuman_data'] = $this->Pengumuman_model->getDataById($id);
 
@@ -208,9 +211,9 @@ class Admin extends CI_Controller
 
     public function sop()
     {
-        $data['title'] = 'SOP & Peraturan - Asistant Page';
+        $data['title'] = 'Kelola Peraturan dan Tata Tertib Praktikum';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        $data['berkas'] = $this->db->order_by('id', 'DESC')->get('tb_sop');
+        $data['berkas'] = $this->db->order_by('keterangan', 'ASC')->get('tb_sop2');
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/admin-sidebar', $data);
@@ -219,48 +222,62 @@ class Admin extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function tambah_sop()
+    public function proses_sop()
     {
-        $id         = $this->uri->segment(3);
-        $judul = $this->input->post('judul');
-        $isi    = $this->input->post('isi');
+        $config['upload_path'] = './assets/doc';
+        $config['allowed_types'] = 'pdf|doc|docx|ppt|pptx|xls|xlsx|zip';
 
-        $cek = $this->mdl->getWhere('tb_sop', ['id' => $id]);
-
-        $data = [
-            'judul' => $judul,
-            'isi' => $isi
-        ];
-
-        $this->form_validation->set_rules('judul', 'Judul', 'required|trim');
-        $this->form_validation->set_rules('isi', 'Isi', 'required|trim');
-
-        if ($this->form_validation->run() == false) {
-            $data['title'] = 'Form SOP LABSI';
-            $data['d_sop'] = $this->mdl->getWhere('tb_sop', ['id' => $id])->row_array();
+        $this->load->library('upload', $config);
+        if (!$this->upload->do_upload('berkas')) {
+            $data['title'] = 'Upload';
             $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+            $data['berkas'] = $this->db->get('tb_sop2');
+            $data['error'] = $this->upload->display_errors();
 
             $this->load->view('templates/header', $data);
             $this->load->view('templates/admin-sidebar', $data);
-            $this->load->view('templates/topbar', $data);
+            $this->load->view('templates/admin-topbar', $data);
             $this->load->view('admin/labsi/tambah_sop', $data);
             $this->load->view('templates/footer');
         } else {
-            if ($cek->num_rows() > 0) {
-                $this->session->set_flashdata('message', 'Data berhasil diupdate');
-                $this->mdl->update('tb_sop', $data, ['id' => $id]);
-            } else {
-                $this->session->set_flashdata('message', 'Data berhasil disimpan');
-                $this->mdl->save('tb_sop', $data);
-            }
-
+            $data['nama_file'] = $this->upload->data('file_name');
+            $data['keterangan'] = $this->input->post('keterangan');
+            $data['tipe'] = $this->upload->data('file_ext');
+            $data['ukuran'] = $this->upload->data('file_size');
+            $this->db->insert('tb_sop2', $data);
             redirect('admin/sop');
         }
     }
 
+    public function upload_sop()
+    {
+        $data['title'] = 'Upload';
+        $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+        $data['berkas'] = $this->db->get('tb_sop2');
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/admin-sidebar', $data);
+        $this->load->view('templates/admin-topbar', $data);
+        $this->load->view('admin/labsi/tambah_sop', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function download_sop($id)
+    {
+        $data = $this->db->get_where('tb_sop2', ['id' => $id])->row();
+        force_download('assets/doc/' . $data->nama_file, NULL);
+    }
+
+    public function hapus_sop($id)
+    {
+        $this->db->delete('tb_sop2', ['id' => $id]);
+        $this->session->set_flashdata('message', 'dihapus');
+        redirect('admin/sop');
+    }
+
     public function faq()
     {
-        $data['title'] = 'FAQ - Admin Page';
+        $data['title'] = 'Kelola FAQ';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         // $data['berkas'] = $this->db->get('tb_jadwal_praktikum');
 
@@ -286,11 +303,15 @@ class Admin extends CI_Controller
             'jawaban' => $jawaban
         ];
 
-        $this->form_validation->set_rules('pertanyaan', 'Pertanyaan', 'required|trim');
-        $this->form_validation->set_rules('jawaban', 'Jawaban', 'required|trim');
+        $this->form_validation->set_rules('pertanyaan', 'Pertanyaan', 'required|trim', [
+            'required' => 'Kolom pertanyaan wajib diisi.'
+        ]);
+        $this->form_validation->set_rules('jawaban', 'Jawaban', 'required|trim', [
+            'required' => 'Kolom jawaban wajib diisi.'
+        ]);
 
         if ($this->form_validation->run() == false) {
-            $data['title'] = 'Form FAQ LABSI';
+            $data['title'] = 'Form Tambah FAQ';
             $data['d_faq'] = $this->mdl->getWhere('tb_faq', ['id' => $id])->row_array();
             $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
@@ -301,10 +322,10 @@ class Admin extends CI_Controller
             $this->load->view('templates/footer');
         } else {
             if ($cek->num_rows() > 0) {
-                $this->session->set_flashdata('message', 'Data berhasil diupdate');
+                $this->session->set_flashdata('message', 'Update data');
                 $this->mdl->update('tb_faq', $data, ['id' => $id]);
             } else {
-                $this->session->set_flashdata('message', 'Data berhasil disimpan');
+                $this->session->set_flashdata('message', 'Simpan data');
                 $this->mdl->save('tb_faq', $data);
             }
 
@@ -314,7 +335,7 @@ class Admin extends CI_Controller
 
     public function edit_faq()
     {
-        $data['title'] = 'Form Edit Data FAQ';
+        $data['title'] = 'Form Edit FAQ';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
         $this->load->view('templates/header', $data);
@@ -327,13 +348,13 @@ class Admin extends CI_Controller
     public function hapus_faq($id)
     {
         $this->db->delete('tb_faq', ['id' => $id]);
-        $this->session->set_flashdata('message', 'dihapus');
+        $this->session->set_flashdata('message', 'Hapus data');
         redirect('admin/faq');
     }
 
     public function contact()
     {
-        $data['title'] = 'Contact - Asistant Page';
+        $data['title'] = 'Daftar Pesan Masuk';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         // $data['berkas'] = $this->db->get('tb_contact');
         $data['berkas'] = $this->db->order_by('id', 'DESC')->get('tb_contact');
@@ -347,7 +368,7 @@ class Admin extends CI_Controller
 
     public function detail_contact($id)
     {
-        $data['title'] = 'All Biodata Assistant';
+        $data['title'] = 'Detail Pesan';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['d_contact'] = $this->db->get_where('tb_contact', ['id' => $id])->row_array();
         // $this->load->model('User_model', 'all_user');
@@ -369,7 +390,7 @@ class Admin extends CI_Controller
 
     public function jadwal_jaga()
     {
-        $data['title'] = 'Jadwal Jaga - Asistant Page';
+        $data['title'] = 'Kelola Jadwal Jaga Asisten';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['berkas'] = $this->db->order_by('keterangan_berkas', 'ASC')->get('tb_jadwal_jaga');
 
@@ -387,8 +408,17 @@ class Admin extends CI_Controller
 
         $this->load->library('upload', $config);
         if (!$this->upload->do_upload('berkas')) {
-            $error = array('error' => $this->upload->display_errors());
-            $this->load->view('admin/praktikum/tambah_jadwaljaga', $error);
+            // $error = array('error' => $this->upload->display_errors());
+            $data['title'] = 'Jadwal Jaga Asisten';
+            $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+            $data['berkas'] = $this->db->get('tb_jadwal_jaga');
+            $data['error'] = $this->upload->display_errors();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/admin-sidebar', $data);
+            $this->load->view('templates/admin-topbar', $data);
+            $this->load->view('admin/praktikum/tambah_jadwaljaga', $data);
+            $this->load->view('templates/footer');
         } else {
             $data['nama_berkas'] = $this->upload->data('file_name');
             $data['keterangan_berkas'] = $this->input->post('keterangan_berkas');
@@ -401,7 +431,7 @@ class Admin extends CI_Controller
 
     public function upload_jadwaljaga()
     {
-        $data['title'] = 'Materi Download - Asistant Page';
+        $data['title'] = 'Jadwal Jaga';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['berkas'] = $this->db->get('tb_jadwal_jaga');
 
@@ -427,9 +457,8 @@ class Admin extends CI_Controller
 
     public function jadwal_praktikum()
     {
-        $data['title'] = 'Jadwal Praktikum - Asistant Page';
+        $data['title'] = 'Kelola Jadwal Praktikum';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        // $data['berkas'] = $this->db->get('tb_jadwal_praktikum');
 
         $data['berkas'] = $this->db->order_by('keterangan_berkas', 'ASC')->get('tb_jadwal_praktikum');
 
@@ -447,8 +476,16 @@ class Admin extends CI_Controller
 
         $this->load->library('upload', $config);
         if (!$this->upload->do_upload('berkas')) {
-            $error = array('error' => $this->upload->display_errors());
-            $this->load->view('admin/praktikum/tambah_jadwalpraktikum', $error);
+            $data['title'] = 'Jadwal Praktikum';
+            $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+            $data['berkas'] = $this->db->get('tb_jadwal_praktikum');
+            $data['error'] = $this->upload->display_errors();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/admin-sidebar', $data);
+            $this->load->view('templates/admin-topbar', $data);
+            $this->load->view('admin/praktikum/tambah_jadwalpraktikum', $data);
+            $this->load->view('templates/footer');
         } else {
             $data['nama_berkas'] = $this->upload->data('file_name');
             $data['keterangan_berkas'] = $this->input->post('keterangan_berkas');
@@ -461,7 +498,7 @@ class Admin extends CI_Controller
 
     public function upload_jadwalpraktikum()
     {
-        $data['title'] = 'Materi Download - Asistant Page';
+        $data['title'] = 'Jadwal Praktikum';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['berkas'] = $this->db->get('tb_jadwal_praktikum');
 
@@ -487,9 +524,8 @@ class Admin extends CI_Controller
 
     public function materi()
     {
-        $data['title'] = 'Materi Download - Asistant Page';
+        $data['title'] = 'Kelola Modul Materi';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
-        // $data['berkas'] = $this->db->get('tb_berkas');
         $data['berkas'] = $this->db->order_by('keterangan_berkas', 'ASC')->get('tb_berkas');
 
         $this->load->view('templates/header', $data);
@@ -509,8 +545,16 @@ class Admin extends CI_Controller
         //$config['encrypt_name'] = TRUE;
         $this->load->library('upload', $config);
         if (!$this->upload->do_upload('berkas')) {
-            $error = array('error' => $this->upload->display_errors());
-            $this->load->view('admin/upload_materi', $error);
+            $data['title'] = 'Modul Materi';
+            $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
+            $data['berkas'] = $this->db->get('tb_berkas');
+            $data['error'] = $this->upload->display_errors();
+
+            $this->load->view('templates/header', $data);
+            $this->load->view('templates/admin-sidebar', $data);
+            $this->load->view('templates/admin-topbar', $data);
+            $this->load->view('admin/praktikum/upload_materi', $data);
+            $this->load->view('templates/footer');
         } else {
             $data['nama_berkas'] = $this->upload->data('file_name');
             $data['keterangan_berkas'] = $this->input->post('keterangan_berkas');
@@ -523,7 +567,7 @@ class Admin extends CI_Controller
 
     public function upload_materi()
     {
-        $data['title'] = 'Materi Download - Asistant Page';
+        $data['title'] = 'Modul Materi';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['berkas'] = $this->db->get('tb_berkas');
 
@@ -549,7 +593,7 @@ class Admin extends CI_Controller
 
     public function all_biodata()
     {
-        $data['title'] = 'All Biodata Assistant';
+        $data['title'] = 'Kelola Seluruh Biodata Asisten';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         // $this->load->model('User_model', 'all_user');
         $data['all_user'] = $this->db->get('user')->result_array();
@@ -563,7 +607,7 @@ class Admin extends CI_Controller
 
     public function detail_biodata($id)
     {
-        $data['title'] = 'All Biodata Assistant';
+        $data['title'] = 'Detail Biodata Asisten';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['d_biodata'] = $this->db->get_where('user', ['id' => $id])->row_array();
         // $this->load->model('User_model', 'all_user');
@@ -587,7 +631,7 @@ class Admin extends CI_Controller
 
     public function biodata_kerja()
     {
-        $data['title'] = 'All Biodata Assistant';
+        $data['title'] = 'Biodata Admin';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         // $this->load->model('User_model', 'all_user');
         // $data['all_user'] = $this->db->get('user')->result_array();
@@ -601,11 +645,11 @@ class Admin extends CI_Controller
 
     public function editBiodata()
     {
-        $data['title'] = 'Edit Biodata';
+        $data['title'] = 'Edit Biodata Admin';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         $data['status'] = ['Aktif', 'Tidak Aktif'];
         $data['jabatan'] = ['Asisten', 'Ketua', 'Penanggung Jawab (PJ)'];
-        $data['lokasi'] = ['Kelapa Dua, Depok', 'Karawaci', 'Kalimalang'];
+        $data['lokasi'] = ['Kelapa Dua, Depok', 'Karawaci', 'Cengkareng'];
 
         $this->form_validation->set_rules('name', 'Nama Lengkap', 'required|trim');
         $this->form_validation->set_rules('no_hp', 'No Hp / Whatsapp', 'required|trim');
@@ -671,23 +715,32 @@ class Admin extends CI_Controller
 
     public function tambah_asisten()
     {
-        $data['title'] = 'Tambah Asisten Baru';
+        $data['title'] = 'Tambah Akun Asisten Baru';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
         // $this->load->model('User_model', 'all_user');
         // $data['all_user'] = $this->db->get('user')->result_array();
 
         $this->form_validation->set_rules('npm', 'NPM', 'required|trim|is_unique[user.npm]', [
-            'is_unique' => 'This npm has already registered!'
+            'is_unique' => 'NPM telah terdaftar.',
+            'required' => 'NPM harus diisi.'
         ]);
-        $this->form_validation->set_rules('name', 'Name', 'required|trim');
+        $this->form_validation->set_rules('name', 'Name', 'required|trim', [
+            'required' => 'Nama harus diisi.'
+        ]);
         $this->form_validation->set_rules('email', 'Email', 'required|trim|valid_email|is_unique[user.email]', [
-            'is_unique' => 'This email has already registered!'
+            'is_unique' => 'Email ini telah terdaftar.',
+            'required' => 'Email harus diisi.'
         ]);
-        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]', [
-            'matches' => 'Password dont match!',
-            'min_length' => 'Password too short!'
+        $this->form_validation->set_rules('password1', 'Password Baru', 'required|trim|min_length[6]|matches[password2]', [
+            'required' => 'Password harus diisi.',
+            'min_length' => 'Password min 6 digit.',
+            'matches' => 'Password dan konfirmasi password tidak sama.'
         ]);
-        $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
+        $this->form_validation->set_rules('password2', 'Konfirmasi Password Baru', 'required|trim|min_length[6]|matches[password1]', [
+            'required' => 'Konfirmasi password baru harus diisi.',
+            'min_length' => 'Password min 6 digit.',
+            'matches' => 'Password dan konfirmasi password tidak sama.'
+        ]);
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
@@ -704,7 +757,12 @@ class Admin extends CI_Controller
                 'password' => password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
                 'role_id' => 2,
                 'is_active' => 1,
-                'date_created' => time()
+                'date_created' => time(),
+                'no_hp' => '',
+                'kelas' => '',
+                'loc_jaga' => '',
+                'jabatan' => '',
+                'status' => 'Aktif'
             ];
 
             $this->db->insert('user', $data);
@@ -720,9 +778,19 @@ class Admin extends CI_Controller
         $data['title'] = 'Form Ubah Password';
         $data['user'] = $this->db->get_where('user', ['email' => $this->session->userdata('email')])->row_array();
 
-        $this->form_validation->set_rules('current_password', 'Current Password', 'required|trim');
-        $this->form_validation->set_rules('new_password1', 'New Password', 'required|trim|min_length[3]|matches[new_password2]');
-        $this->form_validation->set_rules('new_password2', 'Confirm Password', 'required|trim|min_length[3]|matches[new_password1]');
+        $this->form_validation->set_rules('current_password', 'Password Lama', 'required|trim', [
+            'required' => 'Password saat ini harus diisi!'
+        ]);
+        $this->form_validation->set_rules('new_password1', 'Password Baru', 'required|trim|min_length[6]|matches[new_password2]', [
+            'required' => 'Password baru harus diisi.',
+            'min_length' => 'Password min 6 digit.',
+            'matches' => 'Password baru dan konfirmasi password tidak sama.'
+        ]);
+        $this->form_validation->set_rules('new_password2', 'Konfirmasi Password Baru', 'required|trim|min_length[6]|matches[new_password1]', [
+            'required' => 'Konfirmasi password baru harus diisi!',
+            'min_length' => 'Password min 6 digit!',
+            'matches' => 'Password baru dan konfirmasi password tidak sama.'
+        ]);
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);

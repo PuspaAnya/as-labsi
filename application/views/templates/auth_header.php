@@ -32,7 +32,7 @@
         <!-- Image and text -->
     <nav class="navbar navbar-dark bg-gradient-dark">
         <div class="container">
-            <a class="navbar-brand font-weight-bold mx-auto" href=<?= base_url('welcome/index') ?>>
+            <a class="navbar-brand font-weight-bold mx-auto" href=<?= base_url('') ?>>
                 <img src="<?= base_url('assets/img/'); ?>logo_ug.png" width="30" height="30" class="d-inline-block align-top" alt="">
                 LABSI
             </a>

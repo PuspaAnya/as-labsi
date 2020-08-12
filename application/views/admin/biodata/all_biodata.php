@@ -4,15 +4,15 @@
     <!-- Page Heading -->
     <h5 class="h3 mb-3 mt-3 text-gray-800"></h5>
 
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold">Data Asisten LABSI</h6>
+    <div class="card shadow mb-4 col-lg-11 mx-auto">
+        <div class="card-header py-3 mx-auto">
+            <h4 class="m-0 font-weight-bold">Data Asisten LABSI</h4>
         </div>
 
         <?= $this->session->flashdata('message') ?>
 
         <div class="card-body">
-            <a href=<?= base_url('admin/tambah_asisten') ?> class="btn btn-primary mb-3">+ tambah asisten</a>
+            <a href=<?= base_url('admin/tambah_asisten') ?> class="btn btn-outline-primary mb-3"><i class="fas fa-fw fa-plus"></i> Akun Asisten</a>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="table1" width="100%" cellspacing="0">
                     <thead>

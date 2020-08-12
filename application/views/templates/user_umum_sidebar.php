@@ -2,7 +2,7 @@
 <ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #841F85">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('welcome/index') ?>">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= base_url('') ?>">
         <div class="sidebar-brand-icon">
             <img src="<?= base_url('assets/img/'); ?>logo_ug.png" width="50" height="50" class="d-inline-block align-center" alt="">
         </div>
@@ -14,12 +14,12 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Welcome to LABSI
+        Laboratorium Sistem Informasi
     </div>
 
     <!-- Nav Item - Home -->
     <li class="nav-item <?= $this->uri->segment(2) == 'index' || $this->uri->segment(2) == '' ? 'active' : '' ?>">
-        <a class="nav-link" href="<?= base_url('welcome/index') ?>">
+        <a class="nav-link" href="<?= base_url('') ?>">
             <i class="fas fa-fw fa-home"></i>
             <span>Beranda</span></a>
     </li>

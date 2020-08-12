@@ -2,12 +2,12 @@
 <div class="container-fluid">
 
     <!-- Page Heading -->
-    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <div class="d-sm-flex align-items-center justify-content-between mb-5">
         <!-- <h1 class="h3 mb-0 text-gray-800"><?= $title; ?></h1> -->
     </div>
 
-    <div class="card shadow mb-4 col-lg-6">
-        <div class="card-header py-3">
+    <div class="card shadow mb-4 col-lg-6 mx-auto">
+        <div class="card-header py-3 mx-auto">
             <h6 class="m-0 font-weight-bold"><?= $title; ?></h6>
         </div>
         <div class="card-body">
@@ -23,12 +23,12 @@
                     <?= form_error('jawaban', '<small class="text-danger pl-1">', '</small>'); ?>
                 </div>
 
-                <div class="row float-right">
-                    <div class="col-md-6 mt-2">
-                        <a href="<?= base_url('admin/faq') ?>" class="btn btn-secondary">Batal</a>
+                <div class="row justify-content-start mt-4 ml-1">
+                    <div class="mt-2">
+                        <a href="<?= base_url('admin/faq') ?>" class="btn"><i class="fas fa-fw fa-arrow-left"></i> Kembali</a>
                     </div>
-                    <div class="col-md-6 mt-2 pl-0">
-                        <button type="submit" name="tambah" class="btn btn-primary">Simpan</button>
+                    <div class="mt-2 ml-3">
+                        <button type="submit" name="tambah" class="btn btn-success"><i class="fas fa-fw fa-check"></i> Simpan</button>
                     </div>
                 </div>
             </form>

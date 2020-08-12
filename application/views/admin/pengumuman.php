@@ -25,7 +25,7 @@
                 </div>
             <?php endif; ?>
 
-            <a href="<?= base_url('admin/tambah_pengumuman') ?>" class="btn btn-success mb-3">+ tambah data</a>
+            <a href="<?= base_url('admin/tambah_pengumuman') ?>" class="btn btn-outline-primary mb-3"><i class="fas fa-fw fa-plus"></i> Pengumuman</a>
             <div class="table-responsive">
                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                     <thead>

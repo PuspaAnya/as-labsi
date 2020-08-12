@@ -1,6 +1,10 @@
 <!-- Kolom Login -->
 <div class="container">
 
+    <div class="d-sm-flex align-items-center justify-content-between mb-5">
+        <!-- <h1 class="h3 mb-0 text-gray-800"><?= $title; ?></h1> -->
+    </div>
+
     <!-- Outer Row -->
     <div class="row justify-content-center">
 
@@ -32,13 +36,13 @@
                                         Login
                                     </button>
 
-                                    <hr>
+                                    <!-- <hr>
                                     <div class="text-center">
                                         <a class="small" href="forgot-password.html">Forgot Password?</a>
                                     </div>
                                     <div class="text-center">
                                         <a class="small" href="<?= base_url('auth/registration') ?>">Create an Account!</a>
-                                    </div>
+                                    </div> -->
                                 </form>
                             </div>
                         </div>

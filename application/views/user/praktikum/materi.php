@@ -6,8 +6,8 @@
 
     </div>
 
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
+    <div class="card shadow mb-4 col-lg-10 mx-auto">
+        <div class="card-header py-3 mx-auto">
             <h5 class="m-0 font-weight-bold">Materi Praktikum LABSI</h5>
         </div>
         <div class="card-body">

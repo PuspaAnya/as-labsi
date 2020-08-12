@@ -4,7 +4,7 @@
 
 
     <div class="card shadow col-lg-11 mx-auto mt-4 mb-4">
-        <div class="card-header py-3">
+        <div class="card-header py-3 mx-auto">
             <h5 class="m-0 font-weight-bold">Kontak LABSI</h5>
         </div>
 
@@ -40,12 +40,12 @@
                         <?= form_error('pesan', '<small class="text-danger pl-1">', '</small>'); ?>
                     </div>
 
-                    <div class="row float-right">
+                    <div class="row float-left">
                         <div class="col-md-6 mt-2">
-                            <a href="<?= base_url('admin') ?>" class="btn btn-secondary">Kembali</a>
+                            <a href="<?= base_url('user/contact') ?>" class="btn">Kembali</a>
                         </div>
                         <div class="col-md-6 mt-2">
-                            <button type="submit" name="tambah" class="btn btn-success">Submit</button>
+                            <button type="submit" name="tambah" class="btn btn-success">Kirim</button>
                         </div>
                     </div>
                 </form>
@@ -56,14 +56,35 @@
                 <div class="card-header bg-none">
                     Detail Kontak
                 </div>
+
                 <div class="card-body">
-
-                    <p style="text-align:left;">KAMPUS F4 UNIVERSITAS GUNADARMA <br>
-                        Jalan Raya Bogor No.21,Kec. Cimanggis, Kota Depok, Jawa Barat. Kode Pos: 16452, Indonesia &nbsp;</td>
-                        <td>
-                            <p style="text-align:left;">KAMPUS J5 UNIVERSITAS GUNADARMA <br>
-                                Jl. Stasiun Cakung, Sentra Timur, Cakung, Daerah Khusus Ibukota Jakarta, Indonesia
-
+                    <h5>Lokasi LABSI Universitas Gunadarma</h5>
+                    <br>
+                    <td>
+                        <p style="text-align:left;">KAMPUS E DEPOK<br>
+                            Jl. Komjen.Pol.M.Jasin No.9, Tugu, Kec. Cimanggis,
+                            Kota Depok, Jawa Barat 16451
+                        </p>
+                    </td>
+                    <td>
+                        <p style="text-align:left;">KAMPUS H DEPOK<br>
+                            Jl. Akses Kelapa Dua, Cimanggis, Pasir Gunung Selatan,
+                            Kec. Cimanggis, Kota Depok, Jawa Barat 16451
+                        </p>
+                    </td>
+                    <td>
+                        <p style="text-align:left;">KAMPUS KARAWACI<br>
+                            Jl. Danau Kelapa Dua Karawaci,
+                            Karawaci, Tangerang
+                        </p>
+                    </td>
+                    <td>
+                        <p style="text-align:left;">KAMPUS L CENGKARENG<br>
+                            Jl. Raya Kamal Outring Road No.75
+                            Cengkareng, Tangerang
+                            Banten, Indonesia
+                        </p>
+                    </td>
                 </div>
 
             </div>

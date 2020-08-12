@@ -8,11 +8,10 @@
 
     <div class="card shadow mb-4 col-lg-10 mx-auto">
         <div class="card-header py-3 mx-auto">
-            <h3 class="m-0 font-weight-bold"><?= $title; ?></h3>
+            <h4 class="m-0 font-weight-bold"><?= $title; ?></h4>
         </div>
 
         <div class="card-body p-4 m-2">
-
             <div class="row">
                 <div class="col-lg-8 mx-auto">
 
@@ -116,10 +115,10 @@
                         </div>
                     </div>
 
-                    <div class="form-group row justify-content-end">
+                    <div class="form-group row justify-content-start">
                         <div class="col-sm-10 mt-5">
-                            <a href="<?= base_url('admin/biodata_kerja') ?>" class="btn btn-secondary">Kembali</a>
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <a href="<?= base_url('admin/biodata_kerja') ?>" class="btn"><i class="fas fa-fw fa-arrow-left"></i> Kembali</a>
+                            <button type="submit" class="btn btn-success"><i class="fas fa-fw fa-check"></i> Simpan</button>
                         </div>
                     </div>
 
@@ -127,7 +126,6 @@
 
                 </div>
             </div>
-
         </div>
     </div>
 

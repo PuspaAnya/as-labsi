@@ -66,7 +66,7 @@
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item  <?= $this->uri->segment(2) == 'jadwal_jaga' ? 'active' : '' ?>" href="<?= base_url('user/jadwal_jaga') ?>">Jadwal Jaga</a>
                 <a class="collapse-item  <?= $this->uri->segment(2) == 'jadwal_praktikum' ? 'active' : '' ?>" href="<?= base_url('user/jadwal_praktikum') ?>">Jadwal Praktikum</a>
-                <a class="collapse-item  <?= $this->uri->segment(2) == 'materi' ? 'active' : '' ?>" href="<?= base_url('user/materi') ?>">Download Materi</a>
+                <a class="collapse-item  <?= $this->uri->segment(2) == 'materi' ? 'active' : '' ?>" href="<?= base_url('user/materi') ?>">Modul Materi</a>
             </div>
         </div>
     </li>
@@ -75,18 +75,22 @@
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item <?= $this->uri->segment(2) == 'biodata_kerja'
                             || $this->uri->segment(2) == 'all_biodata'
-                            || $this->uri->segment(2) == 'editBiodata' ? 'active' : '' ?>">
+                            || $this->uri->segment(2) == 'editBiodata'
+                            || $this->uri->segment(2) == 'ubah_Password'
+                            || $this->uri->segment(2) == 'detail_biodata' ? 'active' : '' ?>">
         <a class="nav-link collapsed active" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true" aria-controls="collapsePages">
             <i class="fas fa-fw fa-id-card"></i>
             <span>Biodata</span>
         </a>
         <div id="collapsePages" class="collapse <?= $this->uri->segment(2) == 'biodata_kerja'
                                                     || $this->uri->segment(2) == 'all_biodata'
-                                                    || $this->uri->segment(2) == 'editBiodata' ? 'show' : '' ?>" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                                                    || $this->uri->segment(2) == 'editBiodata'
+                                                    || $this->uri->segment(2) == 'ubah_Password'
+                                                    || $this->uri->segment(2) == 'detail_biodata' ? 'show' : '' ?>" aria-labelledby="headingPages" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item <?= $this->uri->segment(2) == 'biodata_kerja'
-                                            || $this->uri->segment(2) == 'editBiodata' ? 'active' : '' ?>" href="<?= base_url('user/biodata_kerja') ?>">Biodata Saya</a>
-                <a class="collapse-item <?= $this->uri->segment(2) == 'all_biodata' ? 'active' : '' ?>" href="<?= base_url('user/all_biodata') ?>">Lihat Biodata Lain</a>
+                                            || $this->uri->segment(2) == 'editBiodata' || $this->uri->segment(2) == 'ubah_Password' ? 'active' : '' ?>" href="<?= base_url('user/biodata_kerja') ?>">Biodata Saya</a>
+                <a class="collapse-item <?= $this->uri->segment(2) == 'all_biodata' || $this->uri->segment(2) == 'detail_biodata' ? 'active' : '' ?>" href="<?= base_url('user/all_biodata') ?>">Lihat Biodata Lain</a>
             </div>
         </div>
     </li>

@@ -19,9 +19,8 @@
 
                 <!-- Nav Item - Login -->
                 <li class="nav-item <?= $this->uri->segment(2) == 'pengumuman' ? 'active' : '' ?>">
-                    <a class="nav-link" href="<?= base_url('welcome/auth') ?>">
-                        <i class="fas fa-sign-in-alt fa-sm fa-fw"></i>
-                        <span>Login Asisten</span></a>
+                    <a class="nav-link" href="<?= base_url('login') ?>">
+                        <i class="fas fa-fw fa-sign-in-alt"></i> Login Asisten</a>
                 </li>
 
             </ul>

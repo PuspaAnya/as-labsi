@@ -27,8 +27,8 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4 text-center">
-        <h1 class="h3 mt-5 text-gray-800 mx-auto">Kalender Akademik LABSI <br>
-            ATA 2019/2020
+        <h1 class="h3 mt-3 text-gray-800 mx-auto">Kalender Akademik <br> Laboratorium Sistem Informasi <br>
+            <?= $d_periode['tahun_periode']; ?>
         </h1>
     </div>
 
